@@ -4,7 +4,7 @@ const userApi = quizApi.injectEndpoints({
   endpoints: (builder) => ({
     createUser: builder.mutation({
       query: (data) => ({
-        url: "users/create-user",
+        url: "/auth/signup",
         method: "POST",
         body: data,
       }),
@@ -32,7 +32,7 @@ const userApi = quizApi.injectEndpoints({
       }),
     }),
     getUserProfile: builder.query({
-      query: () => `/auth/profile`,
+      query: () => `/profile`,
     }),
     getAllUser: builder.query({
       query: () => `/users`,

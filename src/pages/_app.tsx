@@ -26,7 +26,6 @@ export default function App({ Component, pageProps }:AppProps) {
 
 import "@/styles/globals.css";
 import { Provider } from "react-redux";
-import { SessionProvider } from "next-auth/react";
 import type { AppProps } from 'next/app'
 import { Fragment } from 'react'
 import store from "@/redux/store";
@@ -40,11 +39,11 @@ export default function App ({ Component, pageProps }: Props)  {
   const Layout = Component.layout ?? Fragment
 
   return (
-    <SessionProvider session={pageProps.session}>
+  
     <Provider store={store}>
       {getLayout(<Component {...pageProps} />)}
     </Provider>
-  </SessionProvider>
+  
   )
 }
 

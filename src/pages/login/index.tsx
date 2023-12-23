@@ -1,9 +1,12 @@
 import RootLayout from "@/components/Layouts/RootLayout";
+import Spinner from "@/components/ui/Spinner";
 import { useLoginUserMutation } from "@/redux/features/user/userApi";
+import { useAppDispatch } from "@/redux/hooks";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 interface ILoginInputs {
     email: string
@@ -24,13 +27,15 @@ const LoginPage = () => {
   };
   if(loginData?.success){
     localStorage.setItem("quizAccessToken",loginData?.token)
+    toast.success("Login Successfull!")
     router.push('/');
   }
  
 
   return (
     <div className="">
-      <div className="w-11/12 md:w-3/5 lg:w-1/2 mx-auto mt-8 bg-white p-6 rounded-xl shadow-md">
+      <div className="w-11/12 md:w-3/5 lg:w-1/2 mx-auto my-8 bg-white p-6 rounded-xl shadow-md">
+      {isLoading && <Spinner />}
         <h1 className="text-3xl font-bold text-center text-blue-500 mb-6">
           Please Login
         </h1>
@@ -83,7 +88,7 @@ const LoginPage = () => {
         <div className="my-3">
           <p>
             <small>
-              Already Have an Account?{" "}
+              No Account?{" "}
               <Link href="/register" className="font-bold text-blue-500">
                 Please Register
               </Link>
