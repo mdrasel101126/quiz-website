@@ -5,7 +5,7 @@ import React from "react";
 import { Inter } from 'next/font/google'
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useGetUserProfileQuery } from "@/redux/features/user/userApi";
-import { removeUser, saveUser } from "@/redux/features/user/userSlice";
+import { removeUser, saveUser, setAccessToken } from "@/redux/features/user/userSlice";
 import { useRouter } from "next/router";
 
 
@@ -20,6 +20,10 @@ const RootLayout = ({ children }:{children:React.ReactNode}) => {
     if(typeof window !== 'undefined'){
         token=localStorage.getItem("quizAccessToken");
     }
+
+    if(token){
+        dispatch(setAccessToken(token))
+    }
     
     if(user){
         dispatch(saveUser({
@@ -29,9 +33,9 @@ const RootLayout = ({ children }:{children:React.ReactNode}) => {
             role:user.data?.role,
         }))
     }
-    if(isError){
+   /*  if(isError){
         dispatch(removeUser());
-    }
+    } */
     return (
         <>
       <Navbar />

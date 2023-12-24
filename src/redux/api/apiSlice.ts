@@ -5,15 +5,15 @@ export const quizApi = createApi({
   reducerPath: "quizApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/api/v1/",
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem("quizAccessToken");
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).user.accessToken;
       if (token) {
         headers.set("authorization", token);
       }
       return headers;
     },
   }),
-  tagTypes: ["updateUser", "deleteUser"],
+  tagTypes: ["updateUser", "deleteUser", "updateQuiz", "deleteQuiz"],
   endpoints: () => ({}),
 });
 

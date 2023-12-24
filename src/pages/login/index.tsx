@@ -1,6 +1,7 @@
 import RootLayout from "@/components/Layouts/RootLayout";
 import Spinner from "@/components/ui/Spinner";
 import { useLoginUserMutation } from "@/redux/features/user/userApi";
+import { saveUser, setAccessToken, setLoader } from "@/redux/features/user/userSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -14,6 +15,7 @@ interface ILoginInputs {
   }
 const LoginPage = () => {
   const router = useRouter();
+  const dispatch=useAppDispatch()
   const { register, formState: { errors }, handleSubmit } = useForm<ILoginInputs>();
   const [postLogin, { isError, error, isSuccess, isLoading, data:loginData }] =
     useLoginUserMutation();
@@ -26,8 +28,10 @@ const LoginPage = () => {
     postLogin(options);
   };
   if(loginData?.success){
-    localStorage.setItem("quizAccessToken",loginData?.token)
-    toast.success("Login Successfull!")
+    dispatch(setAccessToken(loginData?.token as string));
+    dispatch(setLoader());
+    localStorage.setItem("quizAccessToken",loginData?.token);
+    toast.success("Login Successfull!");
     router.push('/');
   }
  

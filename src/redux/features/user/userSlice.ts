@@ -23,7 +23,7 @@ const userSlice = createSlice({
       state.userLoader = false;
       state.role = action.payload?.role;
     },
-    setAccessToken: (state, action) => {
+    setAccessToken: (state, action: PayloadAction<string>) => {
       state.accessToken = action.payload;
     },
     setLoader: (state) => {

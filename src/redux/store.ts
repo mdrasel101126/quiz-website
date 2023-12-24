@@ -4,6 +4,7 @@ import { quizApi } from "./api/apiSlice";
 const store = configureStore({
   reducer: {
     user: userReducer,
+
     [quizApi.reducerPath]: quizApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
